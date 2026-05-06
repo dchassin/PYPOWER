@@ -8,7 +8,7 @@
 from sys import stdout, stderr
 from math import inf
 from numpy import array, any, delete, unique, arange, nonzero, pi, \
-    r_, ones
+    r_, ones, reshape
 from numpy import flatnonzero as find
 
 from scipy.sparse import hstack, csr_matrix as sparse
@@ -102,7 +102,7 @@ def opf_setup(ppc, ppopt):
         b = y0 - m * x0
         ppc['gencost'][pwl1, MODEL] = POLYNOMIAL
         ppc['gencost'][pwl1, NCOST] = 2
-        ppc['gencost'][pwl1, COST:COST + 2] = r_[m, b]
+        ppc['gencost'][pwl1, COST:COST + 2] = reshape(r_[m, b],(len(pwl1),2))
 
     ## create (read-only) copies of individual fields for convenience
     baseMVA, bus, gen, branch, gencost, _, lbu, ubu, ppopt, \
